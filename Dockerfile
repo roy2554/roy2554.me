@@ -1,7 +1,7 @@
 FROM node:16.13.0
 RUN apt-get update
 
-ADD src /var/www/html
+ADD . /var/www/html
 
 WORKDIR /var/www/html
 
