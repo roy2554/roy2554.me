@@ -1,64 +1,50 @@
 import type { NextPage } from 'next';
-import { useEffect, useState } from 'react';
-import Draggable, { DraggableData } from 'react-draggable';
 import { useRouter } from 'next/router';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGithub, faTwitter } from '@fortawesome/free-brands-svg-icons';
 
 const Home: NextPage = () => {
     const router = useRouter();
 
-    interface draggableProps {
-        x: number;
-        y: number;
-    }
-    const [draggableTexts, setDraggableTexts] = useState<draggableProps[]>([]);
-    const [draggableTextContent, setDraggableTextContent] = useState<String>('roy2554.me');
-
-    const trackRoyTextPos = (number: number, data: DraggableData) => {
-        const before = draggableTexts.slice(0, number);
-        const after = draggableTexts.slice(number + 1);
-        const newDraggableTexts = [...before, { x: data.x, y: data.y }, ...after];
-        setDraggableTexts(newDraggableTexts);
-    };
-
-    const { ctext } = router.query;
-
-    useEffect(() => {
-        const asyncFunc = async () => {
-            const date = new Date();
-            const month = date.getMonth() + 1;
-            const day = date.getDate();
-
-            if (month === 1 && day === 1) {
-                setDraggableTextContent("new year's day");
-            } else if (month === 4 && day === 1) {
-                setDraggableTextContent('fools day');
-            } else if (month === 12 && day === 25) {
-                setDraggableTextContent('christmas day');
-            }
-
-            if (ctext) {
-                setDraggableTextContent(ctext.toString());
-            }
-
-            draggableTextContent.split('').forEach((char, index) => {
-                setDraggableTexts((prevState) => [...prevState, { x: 0, y: 0 }]);
-            });
-        };
-        asyncFunc();
-    }, [ctext, draggableTextContent]);
-
     return (
         <div>
-            <div className="h-screen flex items-center justify-center text-dark-text">
-                {draggableTextContent.split('').map((char, index) => {
-                    return (
-                        <Draggable key={index} onDrag={(e, data) => trackRoyTextPos(index + 1, data)}>
-                            <div className="font-bold text-5xl cursor-pointer">
-                                <a>{char != ' ' ? char : <>&nbsp;</>}</a>
-                            </div>
-                        </Draggable>
-                    );
-                })}
+            <div className="h-screen flex items-center justify-center text-center text-dark-text flex-col">
+                <div className="alert">
+                    <div className="bg-dark-bg-secondary w-full p-4 rounded-md mb-8">
+                        want to visit my legacy page?{' '}
+                        <a href="/legacy" className="underline hover:cursor-pointer">
+                            click here
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <p className="text-3xl font-extrabold">roy2554</p>
+                    </div>
+                    <div className="justify-center flex flex-row">
+                        <a className="text-xl hover:text-dark-text-hover" href={'https://github.com/roy2554'} target={'_blank'}>
+                            {/* <FontAwesomeIcon icon={['fab', 'github']} /> */}
+                            <FontAwesomeIcon icon={faGithub} />
+                        </a>
+                    </div>
+                </div>
+                <div className="p-4" />
+                <div className="justify-center flex flex-col sm:flex-row space-x-0 sm:space-x-16 space-y-4 sm:space-y-0">
+                    <div className="techstacks">
+                        <p className="font-bold text-lg">Technology stacks</p>
+                        <div className="font-normal text-small">
+                            <p>React</p>
+                            <p>Next.js</p>
+                            <p>Express</p>
+                        </div>
+                    </div>
+                    <div className="experiences">
+                        <p className="font-bold text-lg">Experiences</p>
+                        <div className="font-normal text-small">
+                            <p>build a home server</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     );
