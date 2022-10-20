@@ -23,7 +23,7 @@ const Home: NextPage = () => {
                         <p className="text-3xl font-extrabold">roy2554</p>
                     </div>
                     <div className="justify-center flex flex-row">
-                        <a className="text-xl hover:text-dark-text-hover" href={'https://github.com/roy2554'} target={'_blank'}>
+                        <a className="text-xl hover:text-dark-text-hover" href={'https://github.com/roy2554'} target={'_blank'} rel={'noreferrer'}>
                             {/* <FontAwesomeIcon icon={['fab', 'github']} /> */}
                             <FontAwesomeIcon icon={faGithub} />
                         </a>
