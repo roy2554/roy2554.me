@@ -49,7 +49,7 @@ const Home: NextPage = () => {
                     <div className="experiences">
                         <p className="font-bold text-lg">Experiences</p>
                         <div className="font-normal text-small">
-                            <p>build a home server</p>
+                            <p>built a home server</p>
                         </div>
                     </div>
                 </div>
