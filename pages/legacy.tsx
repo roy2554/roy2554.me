@@ -49,6 +49,10 @@ const Home: NextPage = () => {
 
     return (
         <div>
+            <title>roy2554 - Legacy</title>
+            <meta name="title" content="roy2554 - Legacy" />
+            <meta name="description" content="roy2554's legacy page" />
+
             <div className="h-screen flex items-center justify-center text-dark-text">
                 {draggableTextContent.split('').map((char, index) => {
                     return (
