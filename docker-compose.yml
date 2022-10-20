@@ -1,0 +1,8 @@
+version: '3'
+services:
+  roy2554me:
+    image: "roy2554me:1.0"
+    container_name: "roy2554.me"
+    restart: unless-stopped
+    ports:
+      - "1637:3000"
