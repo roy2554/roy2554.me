@@ -2,6 +2,7 @@ import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import Link from 'next/link';
 
 const Home: NextPage = () => {
     const router = useRouter();
@@ -12,9 +13,9 @@ const Home: NextPage = () => {
                 <div className="alert">
                     <div className="bg-dark-bg-secondary w-full p-4 rounded-md mb-8">
                         want to visit my legacy page?{' '}
-                        <a href="/legacy" className="underline hover:cursor-pointer">
-                            click here
-                        </a>
+                        <Link href="/legacy">
+                            <a className="underline hover:cursor-pointer">click here</a>
+                        </Link>
                     </div>
                 </div>
                 <div>
