@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker build --tag roy2554me:1.0 .
