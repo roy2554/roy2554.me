@@ -3,15 +3,18 @@ import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import Link from 'next/link';
+import Head from 'next/head';
 
 const Home: NextPage = () => {
     const router = useRouter();
 
     return (
         <div>
-            <title>roy2554</title>
-            <meta name="title" content="roy2554" />
-            <meta name="description" content="roy2554's profile page" />
+            <Head>
+                <title>roy2554</title>
+                <meta name="title" content="roy2554" />
+                <meta name="description" content="roy2554's profile page" />
+            </Head>
 
             <div className="h-screen flex items-center justify-center text-center text-dark-text flex-col">
                 <div className="alert">
