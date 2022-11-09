@@ -5,10 +5,8 @@ ADD . /var/www/html
 
 WORKDIR /var/www/html
 
-RUN cd client && npm install
-RUN cd client && npm run build
-RUN cd server && npm install
-RUN cd server && npm run build
+RUN npm install
+RUN npm run build
 
 EXPOSE 3000
 
