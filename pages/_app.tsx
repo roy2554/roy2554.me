@@ -1,4 +1,6 @@
 import '../styles/globals.css';
+import '../components/Editor/styles.scss';
+import '../components/Editor/CodeBlockComponent/styles.scss';
 import type { AppProps } from 'next/app';
 
 // FontAwesome Configs
@@ -9,7 +11,7 @@ config.autoAddCss = false;
 
 function MyApp({ Component, pageProps }: AppProps) {
     return (
-        <div className="bg-dark-bg">
+        <div className="bg-dark-bg text-white">
             <Head>
                 <title>roy2554</title>
                 <meta name="title" content="roy2554" />
