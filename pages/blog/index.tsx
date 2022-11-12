@@ -28,7 +28,8 @@ const Home: NextPage = () => {
             // const jwt = axios.defaults.headers.common['Authorization'];
             // console.log('JWT:', jwt);
 
-            const res = await axios.get(`/api/post/`);
+            // const res = await axios.get(`/api/post/`); => if request to '/api/post/', it won't work on IOS, so request to 'api/post' instead
+            const res = await axios.get(`/api/post`);
             // console.log(res);
             console.log(res);
             setBlogPosts(res.data);
@@ -62,8 +63,10 @@ const Home: NextPage = () => {
                 </div>
 
                 {/* TODO: Lazy Loading */}
-                <div className="grid auto-cols-auto gap-4 justify-items-center">
-                    {blogPosts && blogPosts.map((blogPost, index) => <MiniPost post={blogPost} key={`mini-post-${index}`} />)}
+                <div className="">
+                    <div className="grid grid-cols-1 gap-4 justify-items-center">
+                        {blogPosts && blogPosts.map((blogPost, index) => <MiniPost post={blogPost} key={`mini-post-${index}`} />)}
+                    </div>
                 </div>
             </div>
 

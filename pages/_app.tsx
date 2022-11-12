@@ -17,6 +17,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 import cookie from 'react-cookies';
+import Footer from '../components/Footer';
 
 function MyApp({ Component, pageProps }: AppProps) {
     const router = useRouter();
@@ -47,6 +48,10 @@ function MyApp({ Component, pageProps }: AppProps) {
             <meta name="author" content="roy2554" />
 
             <Component {...pageProps} />
+
+            <footer>
+                <Footer />
+            </footer>
         </div>
     );
 }

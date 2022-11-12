@@ -14,17 +14,6 @@ import Tiptap from '../../../../components/Editor';
 const Home: NextPage = () => {
     const router = useRouter();
 
-    const [blogPosts, setBlogPosts] = useState<Post[]>([]);
-
-    useEffect(() => {
-        const asyncFunc = async () => {
-            const res = await axios.get('/api/post/unauthorized');
-            // console.log(res);
-            setBlogPosts(res.data);
-        };
-        asyncFunc();
-    }, []);
-
     const [content, setContent] = useState('');
 
     return (

@@ -1,4 +1,13 @@
 /** @type {import('tailwindcss').Config} */
+
+function generateGridColumns(lastValue) {
+    let obj = {};
+    for (let i = 13; i < lastValue; i++) {
+        obj[`${i}`] = `repeat(${i}, minmax(0, 1fr))`;
+    }
+    return obj;
+}
+
 module.exports = {
     darkMode: 'class',
     content: ['./pages/**/*.{js,jsx,md,mdx,ts,tsx}', './components/**/*.{js,jsx,md,mdx,ts,tsx}'],
@@ -21,6 +30,9 @@ module.exports = {
                 'danger-bg': '#F44336',
                 'danger-text': '#FFF',
                 'danger-border': '#FF5252',
+            },
+            gridTemplateColumns: {
+                ...generateGridColumns(100), // This generates the columns from 12 until 100
             },
         },
     },
