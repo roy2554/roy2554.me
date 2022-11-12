@@ -116,11 +116,11 @@ const MenuBar = ({ editor }: { editor: any }) => {
                 {/* code block 
                 <FontAwesomeIcon icon={faCode} />
             </button> */}
-            {/* <button onClick={() => editor.chain().focus().toggleBlockquote().run()} className={editor.isActive('blockquote') ? 'is-active' : ''}>
-                {/* blockquote 
+            <button onClick={() => editor.chain().focus().toggleBlockquote().run()} className={editor.isActive('blockquote') ? 'is-active' : ''}>
+                {/* blockquote */}
                 <FontAwesomeIcon icon={faQuoteLeft} />
-            </button> */}
-            {/* <button onClick={() => editor.chain().focus().setHorizontalRule().run()}>horizontal rule</button> */}
+            </button>
+            <button onClick={() => editor.chain().focus().setHorizontalRule().run()}>horizontal rule</button>
             {/* <button onClick={() => editor.chain().focus().setHardBreak().run()}>hard break</button> */}
             <button onClick={() => editor.chain().focus().undo().run()} disabled={!editor.can().chain().focus().undo().run()}>
                 {/* undo */}

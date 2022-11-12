@@ -1,7 +1,7 @@
 import '../styles/globals.css';
 import '../components/Editor/styles.scss';
 import '../components/Editor/CodeBlockComponent/styles.scss';
-import type { AppProps } from 'next/app';
+import type { AppContext, AppProps } from 'next/app';
 
 // FontAwesome Configs
 import { config } from '@fortawesome/fontawesome-svg-core';
@@ -9,7 +9,32 @@ import '@fortawesome/fontawesome-svg-core/styles.css';
 import Head from 'next/head';
 config.autoAddCss = false;
 
+// cookie
+import cookies from 'next-cookies';
+import { setToken } from '../Utils/tokenManager';
+import App from 'next/app';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+
+import cookie from 'react-cookies';
+
 function MyApp({ Component, pageProps }: AppProps) {
+    const router = useRouter();
+    // useEffect(() => {
+    //     const jwt = cookies();
+
+    // })
+
+    useEffect(() => {
+        const asyncFunc = async () => {
+            let token = await cookie.load('jsonwebtoken');
+            console.log('TOKEN:::', token);
+            setToken(token);
+            console.log('RELOADED ');
+        };
+        asyncFunc();
+    }, [router]);
+
     return (
         <div className="bg-dark-bg text-white">
             <Head>
@@ -25,5 +50,51 @@ function MyApp({ Component, pageProps }: AppProps) {
         </div>
     );
 }
+
+MyApp.getInitialProps = async (ctx: AppContext) => {
+    // key의 값을 출력하는 함수를 만듬.
+    function getCookie(key: any) {
+        let result = null;
+        // cookie log를 찍어보면 ;로 구분해서 string 값으로 들어오기 때문에 split으로 나눈다.
+        let cookie = ctx?.ctx?.req?.headers?.cookie?.split(';');
+        cookie?.some(function (item: any) {
+            // 공백을 제거
+            item = item.replace(' ', '');
+
+            let dic = item.split('=');
+
+            if (key === dic[0]) {
+                result = dic[1];
+                return true; // break;
+            }
+        });
+        return result;
+    }
+    const token = getCookie('jsonwebtoken');
+
+    if (token) {
+        setToken(token);
+    }
+    return {};
+};
+
+// MyApp.getInitialProps = async (appContext: AppContext) => {
+//     // const appProps = await MyApp.getInitialProps(appContext);
+//     const { ctx } = appContext;
+//     const allCookies = cookies(ctx);
+//     const token = allCookies['jsonwebtoken'];
+
+//     console.log('im working');
+
+//     if (token) {
+//         console.log('token set', token);
+//         setToken(token);
+//     }
+
+//     // return { ...appProps };
+//     // return { ...appProps };
+//     console.log('SDADASDASDAD');
+//     return 'fuck you';
+// };
 
 export default MyApp;

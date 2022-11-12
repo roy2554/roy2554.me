@@ -10,19 +10,43 @@ import { useEffect, useState } from 'react';
 import { Post } from '../../types/database';
 import MiniPost from '../../components/MiniPost';
 
+import cookie from 'react-cookies';
+
 const Home: NextPage = () => {
     const router = useRouter();
 
     const [blogPosts, setBlogPosts] = useState<Post[]>([]);
+    const [jwt, setJwt] = useState('');
+
+    useEffect(() => {
+        console.log('COOKIE: ', cookie.load('jsonwebtoken'));
+        setJwt(cookie.load('jsonwebtoken'));
+    }, [cookie.load('jsonwebtoken')]);
 
     useEffect(() => {
         const asyncFunc = async () => {
-            const res = await axios.get('/api/post/unauthorized');
+            // const jwt = axios.defaults.headers.common['Authorization'];
+            // console.log('JWT:', jwt);
+
+            const res = await axios.get(`/api/post/`);
             // console.log(res);
+            console.log(res);
             setBlogPosts(res.data);
         };
+
+        // console.log('=====');
+        // console.log('AXIOS:', axios.defaults.headers);
+        // axios.get('/api/post/').then(({ data, config }) => {
+        //     console.log(data);
+        //     console.log(config.headers);
+        //     setBlogPosts(data);
+        // });
         asyncFunc();
-    }, []);
+    }, [jwt]);
+
+    useEffect(() => {
+        console.log(blogPosts);
+    }, [blogPosts]);
 
     return (
         <div>
@@ -38,8 +62,8 @@ const Home: NextPage = () => {
                 </div>
 
                 {/* TODO: Lazy Loading */}
-                <div className="grid auto-cols-auto  gap-4 justify-items-center">
-                    {blogPosts && blogPosts.map((blogPost, index) => <MiniPost id={blogPost.id} key={`mini-post-${index}`} />)}
+                <div className="grid auto-cols-auto gap-4 justify-items-center">
+                    {blogPosts && blogPosts.map((blogPost, index) => <MiniPost post={blogPost} key={`mini-post-${index}`} />)}
                 </div>
             </div>
 

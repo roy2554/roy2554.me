@@ -44,6 +44,8 @@ const Home: NextPage = () => {
                 <div className="grid auto-cols-auto gap-4 justify-items-center">
                     <Tiptap setContent={setContent} />
                 </div>
+
+                <div>{content}</div>
             </div>
 
             {/* <div className="h-screen flex items-center justify-center text-center text-dark-text flex-col">

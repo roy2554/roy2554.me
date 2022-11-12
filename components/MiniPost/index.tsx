@@ -10,31 +10,20 @@ import { useEffect, useState } from 'react';
 import { Post } from '../../types/database';
 
 interface Props {
-    id: number;
+    post: Post;
 }
 
-const MiniPost = ({ id }: Props) => {
-    const router = useRouter();
-
-    const [blogPost, setBlogPost] = useState<Post>();
-
-    useEffect(() => {
-        const asyncFunc = async () => {
-            const res = await axios.get(`/api/post/unauthorized/?id=${id}`);
-            // console.log(res);
-            setBlogPost(res.data[0]);
-        };
-        asyncFunc();
-    }, []);
-
+const MiniPost = ({ post }: Props) => {
     return (
         <div
             className={`${
-                blogPost ? null : 'animate-pulse'
+                post ? null : 'animate-pulse'
             } text-dark-text p-2 bg-dark-bg-secondary rounded-md max-w-xs w-full hover:cursor-pointer hover:bg-dark-bg-secondary-hover duration-200 px-4`}
         >
-            <p className="truncate font-bold text-lg">{blogPost?.title ?? 'Loading'}</p>
-            {blogPost?.content ? <p className="truncate fond-light text-sm">{blogPost?.content ?? 'Loading'}</p> : null}
+            <p className="truncate font-bold text-lg">
+                {post.id} {post.title ?? 'Loading'}
+            </p>
+            {post.content ? <p className="truncate fond-light text-sm">{post?.content ?? 'Loading'}</p> : null}
         </div>
     );
 };
