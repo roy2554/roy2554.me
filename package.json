@@ -16,6 +16,8 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@tiptap/extension-code-block-lowlight": "^2.0.0-beta.202",
     "@tiptap/extension-highlight": "^2.0.0-beta.202",
+    "@tiptap/extension-image": "^2.0.0-beta.202",
+    "@tiptap/extension-link": "^2.0.0-beta.202",
     "@tiptap/extension-placeholder": "^2.0.0-beta.202",
     "@tiptap/extension-typography": "^2.0.0-beta.202",
     "@tiptap/react": "^2.0.0-beta.202",
@@ -32,6 +34,7 @@
     "react-dom": "18.2.0",
     "react-draggable": "^4.4.5",
     "sass": "^1.56.1",
+    "styled-components": "^5.3.6",
     "undefined": "^0.1.0"
   },
   "devDependencies": {
@@ -42,6 +45,7 @@
     "eslint": "8.21.0",
     "eslint-config-next": "12.2.4",
     "postcss": "^8.4.16",
+    "tailwind-styled-components": "^2.2.0",
     "tailwindcss": "^3.1.8",
     "typescript": "4.7.4"
   }

@@ -430,10 +430,24 @@
   dependencies:
     "prosemirror-state" "^1.4.1"
 
+"@tiptap/extension-image@^2.0.0-beta.202":
+  "integrity" "sha512-aHPJMXuoMgToTYkGZsz2ue8gKzes+B92qb9lVRYlY9f+r/tC2K4q3HMtx6qvh8l4Dei5/yeV9TqliY79E9A5dg=="
+  "resolved" "https://registry.npmjs.org/@tiptap/extension-image/-/extension-image-2.0.0-beta.202.tgz"
+  "version" "2.0.0-beta.202"
+
 "@tiptap/extension-italic@^2.0.0-beta.202":
   "integrity" "sha512-vgSLy4KDp6AmnAHLHXe/nWeNbLnyUXxmf4U4+esebAV5Hu2F7LgceknFt9D8AGEtYUU+/fYKSeE2NGJgTQG9lA=="
   "resolved" "https://registry.npmjs.org/@tiptap/extension-italic/-/extension-italic-2.0.0-beta.202.tgz"
   "version" "2.0.0-beta.202"
+
+"@tiptap/extension-link@^2.0.0-beta.202":
+  "integrity" "sha512-/9bZd43dMkzmo7SCCDtEscgdFKCat9yZAyAyg+PHYdhI8Lbqv5GfjxzBbx58v7jEP1eDKFnwTDFVwAsxCE9f0w=="
+  "resolved" "https://registry.npmjs.org/@tiptap/extension-link/-/extension-link-2.0.0-beta.202.tgz"
+  "version" "2.0.0-beta.202"
+  dependencies:
+    "linkifyjs" "^3.0.5"
+    "prosemirror-model" "^1.18.1"
+    "prosemirror-state" "^1.4.1"
 
 "@tiptap/extension-list-item@^2.0.0-beta.202":
   "integrity" "sha512-15yAsO+CCM8ievdX4oxg8kMBVFqhzVAw7pU6E8KL76kIwWCIIyVW6hU3VZdglyBVnAG0ws5/DaZ4VRFtVPRDvg=="
@@ -1916,6 +1930,11 @@
   "resolved" "https://registry.npmjs.org/lilconfig/-/lilconfig-2.0.6.tgz"
   "version" "2.0.6"
 
+"linkifyjs@^3.0.5":
+  "integrity" "sha512-1Y9XQH65eQKA9p2xtk+zxvnTeQBG7rdAXSkUG97DmuI/Xhji9uaUzaWxRj6rf9YC0v8KKHkxav7tnLX82Sz5Fg=="
+  "resolved" "https://registry.npmjs.org/linkifyjs/-/linkifyjs-3.0.5.tgz"
+  "version" "3.0.5"
+
 "locate-path@^2.0.0":
   "integrity" "sha512-NCI2kiDkyR7VeEKm27Kda/iQHyKJe1Bu0FlTbYp3CqJu+9IFe9bLyAjMxf5ZDDbEg+iMPzB5zYyUTSm8wVTKmA=="
   "resolved" "https://registry.npmjs.org/locate-path/-/locate-path-2.0.0.tgz"
@@ -2659,7 +2678,7 @@
   "resolved" "https://registry.npmjs.org/strip-json-comments/-/strip-json-comments-3.1.1.tgz"
   "version" "3.1.1"
 
-"styled-components@>= 2":
+"styled-components@^5.3.6", "styled-components@>= 2":
   "integrity" "sha512-hGTZquGAaTqhGWldX7hhfzjnIYBZ0IXQXkCYdvF1Sq3DsUaLx6+NTHC5Jj1ooM2F68sBiVz3lvhfwQs/S3l6qg=="
   "resolved" "https://registry.npmjs.org/styled-components/-/styled-components-5.3.6.tgz"
   "version" "5.3.6"
@@ -2705,6 +2724,18 @@
   "integrity" "sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w=="
   "resolved" "https://registry.npmjs.org/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz"
   "version" "1.0.0"
+
+"tailwind-merge@^1.3.0":
+  "integrity" "sha512-tER/2SbYRdfPYg6m4pDWZSlbymLTmDi+dx4iCsJmgmz4UDGzgnVelOvBe3GNtGCw9Bmc4MiObfJJbKeVL+KnMQ=="
+  "resolved" "https://registry.npmjs.org/tailwind-merge/-/tailwind-merge-1.8.0.tgz"
+  "version" "1.8.0"
+
+"tailwind-styled-components@^2.2.0":
+  "integrity" "sha512-Ogemwk0p69aU8WE/ooJZHjqstdJgT5R6HGU6TFz2uSnveSEtvW+C6aWOjGCvCr5H/bREv0IbbQ4yODknRrLBRQ=="
+  "resolved" "https://registry.npmjs.org/tailwind-styled-components/-/tailwind-styled-components-2.2.0.tgz"
+  "version" "2.2.0"
+  dependencies:
+    "tailwind-merge" "^1.3.0"
 
 "tailwindcss@^3.1.8":
   "integrity" "sha512-YSneUCZSFDYMwk+TGq8qYFdCA3yfBRdBlS7txSq0LUmzyeqRe3a8fBQzbz9M3WS/iFT4BNf/nmw9mEzrnSaC0g=="
