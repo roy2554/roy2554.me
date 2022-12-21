@@ -12,9 +12,10 @@ const Button = tw.button<buttonProps>`
 
     ${(props) => props.disabled && 'cursor-not-allowed brightness-50 hover:none'}
 
-    ${(props) =>
-        (props.color === 'primary' || props.color === 'secondary' || props.color === 'danger' || props.color === 'success' || props.color === 'warning') &&
-        `bg-${props.color}-bg dark:bg-${props.color}-dark-bg enabled:hover:bg-${props.color}-bg-hover enabled:dark:hover:bg-${props.color}-dark-bg-hover`}
+    ${(props) => props.color === 'primary' && 'bg-primary-bg dark:bg-primary-dark-bg enabled:hover:bg-primary-bg-hover enabled:dark:hover:bg-primary-dark-bg-hover'};
+    ${(props) => props.color === 'secondary' && 'bg-secondary-bg dark:bg-secondary-dark-bg enabled:hover:bg-secondary-bg-hover enabled:dark:hover:bg-secondary-dark-bg-hover'};
+    ${(props) => props.color === 'danger' && 'bg-danger-bg dark:bg-danger-dark-bg enabled:hover:bg-danger-bg-hover enabled:dark:hover:bg-danger-dark-bg-hover'};
+    ${(props) => props.color === 'success' && 'bg-success-bg dark:bg-success-dark-bg enabled:hover:bg-success-bg-hover enabled:dark:hover:bg-success-dark-bg-hover'};
+    ${(props) => props.color === 'warning' && 'bg-warning-bg dark:bg-warning-dark-bg enabled:hover:bg-warning-bg-hover enabled:dark:hover:bg-warning-dark-bg-hover'};
 `;
-
 export default Button;
