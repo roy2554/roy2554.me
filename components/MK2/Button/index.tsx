@@ -1,15 +1,20 @@
 import React from 'react';
 import tw from 'tailwind-styled-components';
 
-const Button = tw.button`
-    appearance-none cursor-pointer border-none focus:outline-none
-    text-white font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2
+interface buttonProps {
+    color: 'primary' | 'secondary' | 'danger' | 'success' | 'warning';
+}
 
-    ${(props) => (props.color === 'primary' || !props.color) && 'bg-blue-700 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700'}
-    ${(props) => props.color === 'secondary' && 'bg-gray-500 hover:bg-gray-700'}
-    ${(props) => props.color === 'danger' && 'bg-red-500 hover:bg-red-700'}
-    ${(props) => props.color === 'success' && 'bg-green-500 hover:bg-green-700'}
-    ${(props) => props.color === 'warning' && 'bg-yellow-500 hover:bg-yellow-700'}
+const Button = tw.button<buttonProps>`
+    appearance-none border-none cursor-pointer focus:outline-none
+    text-white font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2
+    duration-300
+
+    ${(props) => props.disabled && 'cursor-not-allowed brightness-50 hover:none'}
+
+    ${(props) =>
+        (props.color === 'primary' || props.color === 'secondary' || props.color === 'danger' || props.color === 'success' || props.color === 'warning') &&
+        `bg-${props.color}-bg dark:bg-${props.color}-dark-bg enabled:hover:bg-${props.color}-bg-hover enabled:dark:hover:bg-${props.color}-dark-bg-hover`}
 `;
 
 export default Button;
