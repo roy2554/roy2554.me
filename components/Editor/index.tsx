@@ -2,7 +2,7 @@
 
 import { EditorContent, ReactNodeViewRenderer, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { ChangeEvent, Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
 
 // Extensions
 import Highlight from '@tiptap/extension-highlight';
@@ -36,13 +36,78 @@ import {
     faRedo,
     faParagraph,
 } from '@fortawesome/free-solid-svg-icons';
+import Link from '@tiptap/extension-link';
+import Image from '@tiptap/extension-image';
+import ModalComponent from '../Modal';
 
 lowlight.registerLanguage('html', html);
 lowlight.registerLanguage('css', css);
 lowlight.registerLanguage('js', js);
 lowlight.registerLanguage('ts', ts);
 
-const MenuBar = ({ editor }: { editor: any }) => {
+const MenuBar = ({
+    editor,
+    media,
+    setMedia,
+    mediaUploadModal,
+    setMediaUploadModal,
+}: {
+    editor: any;
+    media: string[];
+    setMedia: React.Dispatch<React.SetStateAction<string[]>>;
+    mediaUploadModal: boolean;
+    setMediaUploadModal: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
+    // const [mediaUploadModal, setMediaUploadModal] = useState(false);
+    // const [media, setMedia] = useState<string[]>([]);
+
+    const addImage = useCallback(() => {
+        const url = window.prompt('URL');
+
+        if (url) {
+            editor.chain().focus().setImage({ src: url }).run();
+        }
+    }, [editor]);
+
+    const attachMedia = useCallback(() => {
+        if (media) {
+            for (const addr of media) {
+                console.log(`addr: ${addr}`);
+                editor
+                    .chain()
+                    .focus()
+                    .setImage({ src: `/api${addr}` })
+                    .run();
+            }
+            setMedia([]);
+        }
+    }, [editor, media]);
+
+    const setLink = useCallback(() => {
+        if (editor.isActive('link')) {
+            editor.chain().focus().unsetLink().run();
+            return;
+        }
+
+        const previousUrl = editor.getAttributes('link').href;
+        const url = window.prompt('URL', previousUrl);
+
+        // cancelled
+        if (url === null) {
+            return;
+        }
+
+        // empty
+        if (url === '') {
+            editor.chain().focus().extendMarkRange('link').unsetLink().run();
+
+            return;
+        }
+
+        // update link
+        editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
+    }, [editor]);
+
     if (!editor) {
         return null;
     }
@@ -72,6 +137,10 @@ const MenuBar = ({ editor }: { editor: any }) => {
             >
                 {/* strike */}
                 <FontAwesomeIcon icon={faStrikethrough} />
+            </button>
+            <button onClick={setLink} disabled={!editor.can().chain().focus().toggleLink().run()} className={editor.isActive('link') ? 'is-active' : ''}>
+                {/* bold */}
+                <FontAwesomeIcon icon={faLink} />
             </button>
             {/* <button
                 onClick={() => editor.chain().focus().toggleCode().run()}
@@ -130,11 +199,23 @@ const MenuBar = ({ editor }: { editor: any }) => {
                 {/* redo */}
                 <FontAwesomeIcon icon={faRedo} />
             </button>
+            <button
+                onClick={() => {
+                    console.log('setImage');
+                    setMediaUploadModal(true);
+                    attachMedia();
+                }}
+            >
+                setImage
+            </button>
         </>
     );
 };
 
 export default ({ setContent }: { setContent?: Dispatch<SetStateAction<string>> }) => {
+    const [mediaUploadModal, setMediaUploadModal] = useState(false);
+    const [media, setMedia] = useState<string[]>([]);
+
     const editor = useEditor({
         extensions: [
             StarterKit,
@@ -143,6 +224,11 @@ export default ({ setContent }: { setContent?: Dispatch<SetStateAction<string>> 
             }),
             Highlight,
             Typography,
+            Link.configure({
+                autolink: false,
+                openOnClick: false,
+            }),
+            Image,
             // Syntax-highlighting: Unstable on mobile
             // CodeBlockLowlight.extend({
             //     addNodeView() {
@@ -159,14 +245,42 @@ export default ({ setContent }: { setContent?: Dispatch<SetStateAction<string>> 
         },
     });
 
+    useEffect(() => {
+        if (media && editor) {
+            console.log('ATTACHING IMAGE');
+            for (const addr of media) {
+                console.log(`addr: ${addr}`);
+                editor
+                    .chain()
+                    .focus()
+                    .setImage({ src: `/api${addr}` })
+                    .run();
+            }
+            setMedia([]);
+        }
+    }, []);
+
     return (
         <div className="TEXT-EDITOR px-2 text-white w-full flex flex-col items-center">
             <div className="flex flex-wrap">
-                <MenuBar editor={editor} />
+                <MenuBar editor={editor} media={media} setMedia={setMedia} mediaUploadModal={mediaUploadModal} setMediaUploadModal={setMediaUploadModal} />
             </div>
             <div className="w-full">
                 <EditorContent className="outline-none" editor={editor} />
             </div>
+
+            <div className={`${mediaUploadModal ? '' : 'hidden'}`}>
+                <ModalComponent
+                    isActive={mediaUploadModal}
+                    setIsActive={setMediaUploadModal}
+                    title="Media Uploading"
+                    content="upload media files"
+                    mode="mediaUpload"
+                    setMedia={setMedia}
+                    actionOnDone={() => {}}
+                />
+            </div>
+            {media}
         </div>
     );
 };

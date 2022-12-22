@@ -10,11 +10,35 @@ import { useEffect, useState } from 'react';
 import { Post } from '../../../../types/database';
 import MiniPost from '../../../../components/MiniPost';
 import Tiptap from '../../../../components/Editor';
+import ModalComponent from '../../../../components/Modal';
+import Editor from '../../../../components/MK2/Editor';
+import Input from '../../../../components/MK2/Input';
 
 const Home: NextPage = () => {
     const router = useRouter();
 
+    const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [isAnonymous, setIsAnonymous] = useState(false);
+    const [isPublished, setIsPublished] = useState(true);
+    const [isPrivate, setIsPrivate] = useState(false);
+    const [password, setPassword] = useState('');
+    const [watchPermission, setWatchPermission] = useState(0);
+
+    const uploadPost = async (isAnonymous?: boolean, published?: boolean, isPrivate?: boolean, password?: string, watchPermission?: number) => {
+        const res = await axios.post('/api/post', {
+            title,
+            content,
+            isAnonymous,
+            published,
+            isPrivate,
+            password,
+            watchPermission,
+        });
+        console.log(res);
+    };
+
+    useEffect(() => {}, []); // check user auth
 
     return (
         <div>
@@ -29,11 +53,95 @@ const Home: NextPage = () => {
                     <p className="text-3xl font-extrabold">create a new post</p>
                 </div>
 
-                {/* TODO: Lazy Loading */}
                 <div className="grid auto-cols-auto gap-4 justify-items-center">
-                    <Tiptap setContent={setContent} />
+                    {/* <input
+                        type="text"
+                        placeholder="title"
+                        className="w-96"
+                        onChange={(e) => {
+                            setTitle(e.target.value);
+                        }}
+                    /> */}
+                    <Input
+                        type="text"
+                        placeholder="title"
+                        className="w-96"
+                        onChange={(e) => {
+                            setTitle(e.target.value);
+                        }}
+                    />
+                    {/* <Tiptap setContent={setContent} /> */}
+                    <div>
+                        {/* <Editor className="w-full" onChange={setContent} placeholder="write down something…" /> */}
+                        <Editor description={content} setDescription={setContent} />
+                    </div>
                 </div>
 
+                <div className="flex flex-col items-center">
+                    <div>
+                        <a>anonymous</a>
+                        <input type="checkbox" onChange={(e) => setIsAnonymous(e.target.checked)} />
+                    </div>
+                    <div>
+                        <a>publish</a>
+                        <input type="checkbox" onChange={(e) => setIsPublished(e.target.checked)} defaultChecked />
+                    </div>
+                    <div>
+                        <a>private</a>
+                        <input type="checkbox" onChange={(e) => setIsPrivate(e.target.checked)} />
+                    </div>
+                    <div>
+                        <a>password</a>
+                        <input type="text" onChange={(e) => setPassword(e.target.value)} />
+                    </div>
+                    <div>
+                        <a>watchPermission</a>
+                        <input type="number" onChange={(e) => setWatchPermission(Number(e.target.value))} />
+                    </div>
+                </div>
+
+                <div className="flex justify-center">
+                    <button
+                        onClick={() => {
+                            uploadPost(isAnonymous, isPublished, isPrivate, password, watchPermission);
+                        }}
+                    >
+                        Upload
+                    </button>
+                </div>
+
+                <input
+                    type={'file'}
+                    multiple
+                    onChange={(e) => {
+                        console.log(e.target.files);
+                        const itemsLen = e.target.files?.length;
+                        if (itemsLen && e.target.files) {
+                            for (let i = 0; i < itemsLen; i++) {
+                                const file = e.target.files[i];
+
+                                const reader = new FileReader();
+                                reader.readAsDataURL(file);
+                                reader.onload = () => {
+                                    console.log(reader.result);
+                                };
+                                const formDate = new FormData();
+                                formDate.append('file', file);
+                                axios
+                                    .post('/api/media', formDate, {
+                                        headers: {
+                                            'Content-Type': 'multipart/form-data',
+                                        },
+                                    })
+                                    .then((res) => {
+                                        console.log(res);
+                                    });
+                            }
+                        }
+                    }}
+                />
+
+                <div>{title}</div>
                 <div>{content}</div>
             </div>
 
