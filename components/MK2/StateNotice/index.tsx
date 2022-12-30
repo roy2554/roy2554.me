@@ -26,10 +26,11 @@ interface Props {
     canClose?: boolean;
 }
 
-export default (props: TemplateFunction<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, {}> & StateProps & Props) => {
+const SN = (props: TemplateFunction<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, {}> & StateProps & Props) => {
     // @ts-ignore
     return (
         <div className={props.state !== null ? 'block' : 'hidden'}>
+            {/* @ts-ignore */}
             <StateNotice {...props}>
                 <div className="flex justify-between">
                     {/* @ts-ignore */}
@@ -50,3 +51,5 @@ export default (props: TemplateFunction<React.DetailedHTMLProps<React.HTMLAttrib
         </div>
     );
 };
+
+export default SN;

@@ -9,7 +9,6 @@ import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { Post, User } from '../../../../types/database';
 import MiniPost from '../../../../components/MiniPost';
-import Tiptap from '../../../../components/Editor';
 import ModalComponent from '../../../../components/Modal';
 import Editor from '../../../../components/MK2/Editor';
 import Input from '../../../../components/MK2/Input';

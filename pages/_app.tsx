@@ -58,8 +58,6 @@ function MyApp({ Component, pageProps }: AppProps) {
                 <title>roy2554</title>
                 <meta name="title" content="roy2554" />
                 <meta name="description" content="roy2554's profile page" />
-
-                <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet"></link>
             </Head>
 
             <meta name="keywords" content="roy2554, roy2554.me, devroy" />
