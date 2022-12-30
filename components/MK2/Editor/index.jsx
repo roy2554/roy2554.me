@@ -60,7 +60,7 @@ function ReactQuillContainer({ description, setDescription }) {
           },
         })
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           if (res.statusText === 'Created') {
             // 현재 커서 위치에 이미지를 삽입하고 커서 위치를 +1 하기
             const range = quillRef.current.getEditorSelection();
@@ -70,7 +70,7 @@ function ReactQuillContainer({ description, setDescription }) {
           }
         })
         .catch((err) => {
-           console.log(err)
+          //  console.log(err)
            setErrMsg(err.response.data.message);
         });
     };
@@ -105,7 +105,7 @@ function ReactQuillContainer({ description, setDescription }) {
           },
         })
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           if (res.statusText === 'Created') {
             // const Video = quillRef.current.getEditor().import('formats/video');
 
@@ -137,7 +137,7 @@ function ReactQuillContainer({ description, setDescription }) {
           }
         })
         .catch((err) => {
-            console.log(err)
+            // console.log(err)
            setErrMsg(err.response.data.message);
         });
     };

@@ -54,13 +54,13 @@ const Home: NextPage = () => {
                 password,
                 watchPermission,
             });
-            console.log(res);
+            // console.log(res);
             setAnnouncements((state) => [...state, { type: 'success', message: 'post uploaded successfully' }]);
             setTitle('');
             setContent('');
             router.push(`/blog`);
         } catch (err) {
-            console.log(err);
+            // console.log(err);
             // @ts-ignore
             setAnnouncements((state) => [...state, { type: 'error', message: err.response.data.message }]);
         }

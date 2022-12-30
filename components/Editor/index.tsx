@@ -72,7 +72,7 @@ const MenuBar = ({
     const attachMedia = useCallback(() => {
         if (media) {
             for (const addr of media) {
-                console.log(`addr: ${addr}`);
+                // console.log(`addr: ${addr}`);
                 editor
                     .chain()
                     .focus()
@@ -201,7 +201,7 @@ const MenuBar = ({
             </button>
             <button
                 onClick={() => {
-                    console.log('setImage');
+                    // console.log('setImage');
                     setMediaUploadModal(true);
                     attachMedia();
                 }}
@@ -247,9 +247,9 @@ export default ({ setContent }: { setContent?: Dispatch<SetStateAction<string>> 
 
     useEffect(() => {
         if (media && editor) {
-            console.log('ATTACHING IMAGE');
+            // console.log('ATTACHING IMAGE');
             for (const addr of media) {
-                console.log(`addr: ${addr}`);
+                // console.log(`addr: ${addr}`);
                 editor
                     .chain()
                     .focus()

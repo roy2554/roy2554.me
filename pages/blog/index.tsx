@@ -24,7 +24,7 @@ const Home: NextPage = () => {
     const [jwt, setJwt] = useState('');
 
     useEffect(() => {
-        console.log('COOKIE: ', cookie.load('jsonwebtoken'));
+        // console.log('COOKIE: ', cookie.load('jsonwebtoken'));
         setJwt(cookie.load('jsonwebtoken'));
     }, [cookie.load('jsonwebtoken')]);
 
@@ -36,7 +36,7 @@ const Home: NextPage = () => {
             // const res = await axios.get(`/api/post/`); => if request to '/api/post/', it won't work on IOS, so request to 'api/post' instead
             const res = await axios.get(`/api/post`);
             // console.log(res);
-            console.log(res);
+            // console.log(res);
             setBlogPosts(res.data);
         };
 
@@ -50,9 +50,9 @@ const Home: NextPage = () => {
         asyncFunc();
     }, [jwt]);
 
-    useEffect(() => {
-        console.log(blogPosts);
-    }, [blogPosts]);
+    // useEffect(() => {
+    //     console.log(blogPosts);
+    // }, [blogPosts]);
 
     return (
         <div>

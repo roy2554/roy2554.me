@@ -12,7 +12,7 @@ const Components: NextPage = () => {
 
     const quill = useRef(null);
 
-    console.log(quill);
+    // console.log(quill);
 
     return (
         <div>
@@ -36,7 +36,7 @@ const Components: NextPage = () => {
                             color="primary"
                             disabled
                             onClick={() => {
-                                console.log('CLICKED');
+                                // console.log('CLICKED');
                             }}
                         >
                             primary
@@ -61,7 +61,7 @@ const Components: NextPage = () => {
                 defaultValue="sea"
                 ref={quill}
                 onChange={(content: string) => {
-                    console.log(content);
+                    // console.log(content);
                 }}
             />
         </div>

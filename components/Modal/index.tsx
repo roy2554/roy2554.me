@@ -57,7 +57,7 @@ const MediaUploadMode = ({
                     // multiple
                     onChange={(e) => {
                         setIsUploading(true);
-                        console.log(e.target.files);
+                        // console.log(e.target.files);
                         const itemsLen = e.target.files?.length;
                         setFileQty(itemsLen || 0);
                         if (itemsLen && e.target.files) {
@@ -67,7 +67,7 @@ const MediaUploadMode = ({
                                 const reader = new FileReader();
                                 reader.readAsDataURL(file);
                                 reader.onload = () => {
-                                    console.log(reader.result);
+                                    // console.log(reader.result);
                                 };
                                 const formDate = new FormData();
                                 formDate.append('file', file);
@@ -78,7 +78,7 @@ const MediaUploadMode = ({
                                         },
                                     })
                                     .then((res) => {
-                                        console.log(res);
+                                        // console.log(res);
                                         setMedia((prev) => [...prev, res.data.accessUrl]);
                                         setUploadedFilesQty((prev) => {
                                             if (prev + 1 === itemsLen) {

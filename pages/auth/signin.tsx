@@ -21,13 +21,14 @@ const SignIn = () => {
 
         try {
             const res = await axios.post('https://auth.roy2554.me/auth/signin', { email, password });
+            // console.log('RES:', res);
             if (res.status == 200) {
                 setError('success');
                 setToken(res.data.accessToken);
             }
         } catch (err: AxiosError | any) {
-            console.log('AUTH FAILED');
-            console.log(err);
+            // console.log('AUTH FAILED');
+            // console.log(err);
             setError(err.response.data.message);
         }
     };
