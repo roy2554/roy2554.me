@@ -7,15 +7,20 @@ import axios from 'axios';
 import Link from 'next/link';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
-import { Post } from '../../../../types/database';
+import { Post, User } from '../../../../types/database';
 import MiniPost from '../../../../components/MiniPost';
 import Tiptap from '../../../../components/Editor';
 import ModalComponent from '../../../../components/Modal';
 import Editor from '../../../../components/MK2/Editor';
 import Input from '../../../../components/MK2/Input';
+import StateNotice from '../../../../components/MK2/StateNotice';
+
+import useStore from '../../../../store';
 
 const Home: NextPage = () => {
     const router = useRouter();
+
+    const { userInfo }: { userInfo: User | null } = useStore();
 
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
@@ -25,17 +30,40 @@ const Home: NextPage = () => {
     const [password, setPassword] = useState('');
     const [watchPermission, setWatchPermission] = useState(0);
 
+    interface announcement {
+        type: 'success' | 'error';
+        message: string;
+    }
+
+    const typeConverter = (type: 'success' | 'error'): 'success' | 'danger' | null => {
+        if (type === 'success') return 'success';
+        else if (type === 'error') return 'danger';
+        return null;
+    };
+
+    const [announcements, setAnnouncements] = useState<announcement[]>([]);
+
     const uploadPost = async (isAnonymous?: boolean, published?: boolean, isPrivate?: boolean, password?: string, watchPermission?: number) => {
-        const res = await axios.post('/api/post', {
-            title,
-            content,
-            isAnonymous,
-            published,
-            isPrivate,
-            password,
-            watchPermission,
-        });
-        console.log(res);
+        try {
+            const res = await axios.post('/api/post', {
+                title,
+                content,
+                isAnonymous,
+                published,
+                isPrivate,
+                password,
+                watchPermission,
+            });
+            console.log(res);
+            setAnnouncements((state) => [...state, { type: 'success', message: 'post uploaded successfully' }]);
+            setTitle('');
+            setContent('');
+            router.push(`/blog`);
+        } catch (err) {
+            console.log(err);
+            // @ts-ignore
+            setAnnouncements((state) => [...state, { type: 'error', message: err.response.data.message }]);
+        }
     };
 
     useEffect(() => {}, []); // check user auth
@@ -53,7 +81,7 @@ const Home: NextPage = () => {
                     <p className="text-3xl font-extrabold">create a new post</p>
                 </div>
 
-                <div className="grid auto-cols-auto gap-4 justify-items-center">
+                <div className="grid auto-cols-auto gap-4 justify-items-center p-2">
                     {/* <input
                         type="text"
                         placeholder="title"
@@ -62,16 +90,27 @@ const Home: NextPage = () => {
                             setTitle(e.target.value);
                         }}
                     /> */}
-                    <Input
-                        type="text"
-                        placeholder="title"
-                        className="w-96"
-                        onChange={(e) => {
-                            setTitle(e.target.value);
-                        }}
-                    />
+
                     {/* <Tiptap setContent={setContent} /> */}
+
                     <div>
+                        {announcements.map((announcement, index) => (
+                            <div className="w-full" key={index}>
+                                {/* @ts-ignore */}
+                                <StateNotice key={index} color={typeConverter(announcement.type) || 'danger'} canClose={false}>
+                                    {announcement.message}
+                                </StateNotice>
+                            </div>
+                        ))}
+                        <Input
+                            type="text"
+                            placeholder="title"
+                            className="w-full "
+                            value={title}
+                            onChange={(e) => {
+                                setTitle(e.target.value);
+                            }}
+                        />
                         {/* <Editor className="w-full" onChange={setContent} placeholder="write down something…" /> */}
                         <Editor description={content} setDescription={setContent} />
                     </div>
@@ -109,37 +148,6 @@ const Home: NextPage = () => {
                         Upload
                     </button>
                 </div>
-
-                <input
-                    type={'file'}
-                    multiple
-                    onChange={(e) => {
-                        console.log(e.target.files);
-                        const itemsLen = e.target.files?.length;
-                        if (itemsLen && e.target.files) {
-                            for (let i = 0; i < itemsLen; i++) {
-                                const file = e.target.files[i];
-
-                                const reader = new FileReader();
-                                reader.readAsDataURL(file);
-                                reader.onload = () => {
-                                    console.log(reader.result);
-                                };
-                                const formDate = new FormData();
-                                formDate.append('file', file);
-                                axios
-                                    .post('/api/media', formDate, {
-                                        headers: {
-                                            'Content-Type': 'multipart/form-data',
-                                        },
-                                    })
-                                    .then((res) => {
-                                        console.log(res);
-                                    });
-                            }
-                        }
-                    }}
-                />
 
                 <div>{title}</div>
                 <div>{content}</div>

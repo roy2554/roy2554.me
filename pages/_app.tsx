@@ -18,6 +18,8 @@ import { useRouter } from 'next/router';
 
 import cookie from 'react-cookies';
 import Footer from '../components/Footer';
+import useStore from '../store';
+import axios from 'axios';
 
 function MyApp({ Component, pageProps }: AppProps) {
     const router = useRouter();
@@ -26,22 +28,38 @@ function MyApp({ Component, pageProps }: AppProps) {
 
     // })
 
+    const { setUserInfo } = useStore();
+
     useEffect(() => {
         const asyncFunc = async () => {
             let token = await cookie.load('jsonwebtoken');
             console.log('TOKEN:::', token);
             setToken(token);
             console.log('RELOADED ');
+
+            if (token) {
+                const res = await axios.get('/api/auth/user', {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                if (res.data) {
+                    delete res.data.isAuthorized;
+                    setUserInfo(res.data);
+                }
+            }
         };
         asyncFunc();
     }, [router]);
 
     return (
-        <div className="bg-dark-bg text-white">
+        <div className="dark min-h-screen bg-dark-bg text-white">
             <Head>
                 <title>roy2554</title>
                 <meta name="title" content="roy2554" />
                 <meta name="description" content="roy2554's profile page" />
+
+                <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet"></link>
             </Head>
 
             <meta name="keywords" content="roy2554, roy2554.me, devroy" />

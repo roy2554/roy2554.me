@@ -2,7 +2,7 @@ import React from 'react';
 import tw from 'tailwind-styled-components';
 
 interface buttonProps {
-    color: 'primary' | 'secondary' | 'danger' | 'success' | 'warning';
+    color: 'primary' | 'secondary' | 'danger' | 'success' | 'warning' | 'transparent';
 }
 
 const Button = tw.button<buttonProps>`
@@ -17,5 +17,6 @@ const Button = tw.button<buttonProps>`
     ${(props) => props.color === 'danger' && 'bg-danger-bg dark:bg-danger-dark-bg enabled:hover:bg-danger-bg-hover enabled:dark:hover:bg-danger-dark-bg-hover'};
     ${(props) => props.color === 'success' && 'bg-success-bg dark:bg-success-dark-bg enabled:hover:bg-success-bg-hover enabled:dark:hover:bg-success-dark-bg-hover'};
     ${(props) => props.color === 'warning' && 'bg-warning-bg dark:bg-warning-dark-bg enabled:hover:bg-warning-bg-hover enabled:dark:hover:bg-warning-dark-bg-hover'};
+    ${(props) => props.color === 'transparent' && 'bg-transparent dark:bg-transparent enabled:hover:bg-transparent enabled:dark:hover:bg-transparent'};
 `;
 export default Button;

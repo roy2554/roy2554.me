@@ -1,19 +1,24 @@
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGithub, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 
 import axios from 'axios';
 import Link from 'next/link';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
-import { Post } from '../../types/database';
+import { Post, User } from '../../types/database';
 import MiniPost from '../../components/MiniPost';
 
+import useStore from '../../store';
+
 import cookie from 'react-cookies';
+import Button from '../../components/MK2/Button';
 
 const Home: NextPage = () => {
     const router = useRouter();
+
+    const { userInfo }: { userInfo: User | null } = useStore();
 
     const [blogPosts, setBlogPosts] = useState<Post[]>([]);
     const [jwt, setJwt] = useState('');
@@ -65,6 +70,16 @@ const Home: NextPage = () => {
                 {/* TODO: Lazy Loading */}
                 <div className="">
                     <div className="grid grid-cols-1 gap-4 justify-items-center">
+                        {userInfo && (
+                            <Button
+                                color="primary"
+                                onClick={() => {
+                                    router.push('/blog/mk/post');
+                                }}
+                            >
+                                {<FontAwesomeIcon icon={faPenToSquare} />} Create a new post
+                            </Button>
+                        )}
                         {blogPosts && blogPosts.map((blogPost, index) => <MiniPost post={blogPost} key={`mini-post-${index}`} />)}
                     </div>
                 </div>

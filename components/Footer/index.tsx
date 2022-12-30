@@ -8,18 +8,27 @@ import Head from 'next/head';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Post } from '../../types/database';
+import useStore from '../../store';
+
+import { deleteToken } from '../../Utils/tokenManager';
 
 interface Props {
     post: Post;
 }
 
 const Footer = () => {
+    const router = useRouter();
+    const { userInfo } = useStore();
+
     return (
         <div className="bg-dark-bg-secondary p-4 pt-2 text-dark-text text-right">
             <p>
                 <strong>roy2554.me</strong> made by roy2554
             </p>
             <div className="flex flex-row-reverse space-x-4 space-x-reverse">
+                <Link href="/legacy">
+                    <a>legacy</a>
+                </Link>
                 <Link href="/blog">
                     <a>blog</a>
                 </Link>
@@ -28,9 +37,21 @@ const Footer = () => {
                 </Link>
             </div>
             <div className="flex flex-row-reverse space-x-4 space-x-reverse">
-                <Link href="/auth/signin">
-                    <a>sign in</a>
-                </Link>
+                {userInfo ? (
+                    <a
+                        className="cursor-pointer"
+                        onClick={() => {
+                            deleteToken();
+                            router.reload();
+                        }}
+                    >
+                        sign out
+                    </a>
+                ) : (
+                    <Link href="/auth/signin">
+                        <a>sign in</a>
+                    </Link>
+                )}
             </div>
         </div>
     );
