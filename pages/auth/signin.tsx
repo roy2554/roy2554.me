@@ -21,7 +21,7 @@ const SignIn = () => {
 
         try {
             const res = await axios.post('https://auth.roy2554.me/auth/signin', { email, password });
-            // console.log('RES:', res);
+            console.log('RES:', res);
             if (res.status == 200) {
                 setError('success');
                 setToken(res.data.accessToken);
