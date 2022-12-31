@@ -34,13 +34,13 @@ function MyApp({ Component, pageProps }: AppProps) {
     useEffect(() => {
         const asyncFunc = async () => {
             const allCookies = getCookies();
-            console.log('ALL COOKIES:::', allCookies);
+            // console.log('ALL COOKIES:::', allCookies);
 
             // let token = await cookie.load('jsonwebtoken');
             let token = getCookie('jsonwebtoken');
-            console.log('TOKEN:::', token);
+            // console.log('TOKEN:::', token);
 
-            console.log('RELOADED ');
+            // console.log('RELOADED ');
 
             if (token) {
                 setToken(token as string);
@@ -51,7 +51,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                     },
                 });
 
-                console.log('RES:::', res);
+                // console.log('RES:::', res);
 
                 if (res.data) {
                     delete res.data.isAuthorized;
