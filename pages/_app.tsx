@@ -20,6 +20,7 @@ import cookie from 'react-cookies';
 import Footer from '../components/Footer';
 import useStore from '../store';
 import axios from 'axios';
+import { getCookie, getCookies } from 'cookies-next';
 
 function MyApp({ Component, pageProps }: AppProps) {
     const router = useRouter();
@@ -32,12 +33,18 @@ function MyApp({ Component, pageProps }: AppProps) {
 
     useEffect(() => {
         const asyncFunc = async () => {
-            let token = await cookie.load('jsonwebtoken');
+            const allCookies = getCookies();
+            console.log('ALL COOKIES:::', allCookies);
+
+            // let token = await cookie.load('jsonwebtoken');
+            let token = getCookie('jsonwebtoken');
             console.log('TOKEN:::', token);
-            setToken(token);
+
             console.log('RELOADED ');
 
             if (token) {
+                setToken(token as string);
+
                 const res = await axios.get('/api/auth/user', {
                     headers: {
                         Authorization: `Bearer ${token}`,
