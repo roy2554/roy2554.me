@@ -39,8 +39,13 @@ function MyApp({ Component, pageProps }: AppProps) {
 
             if (token) {
                 const res = await axios.get('/api/auth/user', {
-                    withCredentials: true,
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
                 });
+
+                console.log('RES:::', res);
+
                 if (res.data) {
                     delete res.data.isAuthorized;
                     setUserInfo(res.data);
