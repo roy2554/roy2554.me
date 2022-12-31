@@ -60,7 +60,7 @@ function ReactQuillContainer({ description, setDescription }) {
           },
         })
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           if (res.statusText === 'Created' || res.status === 201) {
             // console.log("image upload data:", res.data);
             // 현재 커서 위치에 이미지를 삽입하고 커서 위치를 +1 하기

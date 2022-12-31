@@ -37,7 +37,7 @@ const MiniPost = ({ post }: Props) => {
                 } text-dark-text p-2 bg-dark-bg-secondary rounded-md max-w-xs w-full hover:cursor-pointer hover:bg-dark-bg-secondary-hover duration-200 px-4`}
             >
                 <p className="truncate font-bold text-lg" title={post.title ?? 'Loading'}>
-                    {post.id} {post.title ?? 'Loading'}
+                    {post.title ?? 'Loading'}
                 </p>
                 {/* {post.content ? <p className="truncate fond-light text-sm">{post?.content ?? 'Loading'}</p> : null} */}
                 {postContent ? (
