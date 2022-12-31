@@ -62,6 +62,7 @@ function ReactQuillContainer({ description, setDescription }) {
         .then((res) => {
           // console.log(res);
           if (res.statusText === 'Created') {
+            console.log("image upload data:", res.data);
             // 현재 커서 위치에 이미지를 삽입하고 커서 위치를 +1 하기
             const range = quillRef.current.getEditorSelection();
             quillRef.current.getEditor().insertEmbed(range.index, 'image', '/api' + res.data.accessUrl);
