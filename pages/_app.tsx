@@ -33,9 +33,9 @@ function MyApp({ Component, pageProps }: AppProps) {
     useEffect(() => {
         const asyncFunc = async () => {
             let token = await cookie.load('jsonwebtoken');
-            // console.log('TOKEN:::', token);
+            console.log('TOKEN:::', token);
             setToken(token);
-            // console.log('RELOADED ');
+            console.log('RELOADED ');
 
             if (token) {
                 const res = await axios.get('/api/auth/user', {
