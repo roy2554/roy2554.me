@@ -107,7 +107,7 @@ function ReactQuillContainer({ description, setDescription }) {
         })
         .then((res) => {
           // console.log(res);
-          if (res.statusText === 'Created') {
+          if (res.statusText === 'Created' || res.status === 201) {
             // const Video = quillRef.current.getEditor().import('formats/video');
 
             // class CoustomVideo extends Video {

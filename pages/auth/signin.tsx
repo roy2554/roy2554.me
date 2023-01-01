@@ -12,6 +12,7 @@ import { setToken } from '../../Utils/tokenManager';
 const SignIn = () => {
     const router = useRouter();
     const [error, setError] = useState<string | null>(null);
+    const [positiveEvent, setPositiveEvent] = useState<string | null>(null);
 
     const signin = async (event: React.SyntheticEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -20,22 +21,27 @@ const SignIn = () => {
         const password = event.currentTarget.password?.value;
 
         try {
-            const res = await axios.post('https://auth.roy2554.me/auth/signin', { email, password }, { withCredentials: true });
-            console.log('RES:', res);
+            // console.log('REQUEST TO ' + process.env.AUTH_SERVICE_URL + '/auth/signin');
+            const res = await axios.post(process.env.AUTH_SERVICE_URL + '/auth/signin', { email, password }, { withCredentials: true });
+            // console.log('RES:', res);
             if (res.status == 200) {
-                setError('success');
+                setPositiveEvent('success');
                 setToken(res.data.accessToken);
+                router.push('/');
             }
         } catch (err: AxiosError | any) {
             // console.log('AUTH FAILED');
             // console.log(err);
-            setError(err.response.data.message);
+            setError(err.message);
         }
     };
 
     return (
         <div>
-            <div className="p-2 md:p-4">{error && <p className="p-2 md:p-4 rounded-md bg-red-500">{error}</p>}</div>
+            <div className="p-2 md:p-4">
+                {positiveEvent && <p className="p-2 md:p-4 rounded-md bg-green-500">{positiveEvent}</p>}
+                {error && <p className="p-2 md:p-4 rounded-md bg-red-500">{error}</p>}
+            </div>
             <div className="flex flex-col items-center">
                 <p className="text-3xl font-bold">Sign In</p>
             </div>

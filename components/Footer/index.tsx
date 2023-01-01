@@ -40,8 +40,8 @@ const Footer = () => {
                 {userInfo ? (
                     <a
                         className="cursor-pointer"
-                        onClick={() => {
-                            deleteToken();
+                        onClick={async () => {
+                            await axios.get(process.env.AUTH_SERVICE_URL + '/auth/signout', { withCredentials: true });
                             router.reload();
                         }}
                     >

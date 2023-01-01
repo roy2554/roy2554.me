@@ -71,7 +71,7 @@ const Home: NextPage = () => {
         <div>
             <Head>
                 <title>roy2554 blog - create a new post</title>
-                <meta name="title" content="roy2554" />
+                <meta name="title" content="roy2554 blog" />
                 <meta name="description" content="roy2554 blog - create a new post" />
             </Head>
 
@@ -148,8 +148,8 @@ const Home: NextPage = () => {
                     </button>
                 </div>
 
-                <div>{title}</div>
-                <div>{content}</div>
+                {/* <div>{title}</div> */}
+                {/* <div>{content}</div> */}
             </div>
 
             {/* <div className="h-screen flex items-center justify-center text-center text-dark-text flex-col">

@@ -15,6 +15,8 @@ import useStore from '../../store';
 import cookie from 'react-cookies';
 import Button from '../../components/MK2/Button';
 
+import { useInfiniteQuery } from 'react-query';
+
 const Home: NextPage = () => {
     const router = useRouter();
 

@@ -13,7 +13,7 @@ config.autoAddCss = false;
 import cookies from 'next-cookies';
 import { setToken } from '../Utils/tokenManager';
 import App from 'next/app';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 import cookie from 'react-cookies';
@@ -22,12 +22,17 @@ import useStore from '../store';
 import axios from 'axios';
 import { getCookie, getCookies } from 'cookies-next';
 
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
+
 function MyApp({ Component, pageProps }: AppProps) {
     const router = useRouter();
     // useEffect(() => {
     //     const jwt = cookies();
 
     // })
+
+    const [queryClient] = useState(() => new QueryClient());
 
     const { setUserInfo } = useStore();
 
@@ -73,11 +78,13 @@ function MyApp({ Component, pageProps }: AppProps) {
             <meta name="keywords" content="roy2554, roy2554.me, devroy" />
             <meta name="author" content="roy2554" />
 
-            <Component {...pageProps} />
-
-            <footer>
-                <Footer />
-            </footer>
+            <QueryClientProvider client={queryClient}>
+                <Component {...pageProps} />
+                <footer>
+                    <Footer />
+                </footer>
+                <ReactQueryDevtools initialIsOpen={false} />
+            </QueryClientProvider>
         </div>
     );
 }

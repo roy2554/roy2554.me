@@ -36,16 +36,18 @@ const Home: NextPage = () => {
                         </div>
                         <div className="p-8 md:p-20">
                             <Link href="https://github.com/roy2554">
-                                <FontAwesomeIcon
-                                    icon={faCircleRight}
-                                    title="visit my github profile"
-                                    className="text-3xl md:text-6xl cursor-pointer hover:text-primary-bg duration-100"
-                                />
+                                <a title="visit my github profile">
+                                    <FontAwesomeIcon
+                                        icon={faCircleRight}
+                                        // title="visit my github profile"
+                                        className="text-3xl md:text-6xl cursor-pointer hover:text-primary-bg duration-100"
+                                    />
+                                </a>
                             </Link>
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-col items-center justify-center">
+                <div className="flex flex-col items-center justify-center h-screen">
                     <a className="text-lg md:text-2xl font-bold">🎉 A new service has been open!</a>
                     <Image src="/roybloglogo.svg" alt="roy2554 blog logo" width={200} height={150} />
                     <Button
@@ -57,7 +59,7 @@ const Home: NextPage = () => {
                         Visit roy2554 blog
                     </Button>
                 </div>
-                <div className="p-4"></div>
+                {/* <div className="p-4"></div> */}
             </div>
             {/* <p>{media}</p>
             <p>{JSON.stringify(userInfo)}</p> */}
