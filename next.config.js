@@ -7,7 +7,8 @@ const nextConfig = {
         config.plugins.push(new Dotenv({ silent: true }));
         return config;
     },
-    reactStrictMode: true,
+    // reactStrictMode: true,
+    reactStrictMode: false,
     swcMinify: true,
     async rewrites() {
         if (process.env.NODE_ENV !== 'production') {

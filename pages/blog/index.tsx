@@ -27,8 +27,8 @@ const Home: NextPage = () => {
 
     useEffect(() => {
         // console.log('COOKIE: ', cookie.load('jsonwebtoken'));
-        setJwt(cookie.load('jsonwebtoken'));
-    }, [cookie.load('jsonwebtoken')]);
+        setJwt(cookie.load('__Secure-HI001'));
+    }, [cookie.load('__Secure-HI001')]);
 
     useEffect(() => {
         const asyncFunc = async () => {

@@ -36,13 +36,26 @@ function MyApp({ Component, pageProps }: AppProps) {
 
     const { setUserInfo } = useStore();
 
+    const [isMotdPrinted, setIsMotdPrinted] = useState<boolean>(false);
+
+    useEffect(() => {
+        if (!isMotdPrinted) {
+            setIsMotdPrinted(true);
+            console.log(`┌────────────────────────────────────────────────────────────┐`);
+            console.log(`│ (C)${new Date().getFullYear()} ROY2554.ME                                         │`);
+            console.log(`│ PROVIDED BY ROY2554 (roy2554code@gmail.com)                │`);
+            console.log(`│ PLEASE CONTACT ME IF YOU HAVE ISSUE WITH USING MY WEB PAGE │`);
+            console.log(`└────────────────────────────────────────────────────────────┘`);
+        }
+    }, [isMotdPrinted]);
+
     useEffect(() => {
         const asyncFunc = async () => {
             const allCookies = getCookies();
             // console.log('ALL COOKIES:::', allCookies);
 
             // let token = await cookie.load('jsonwebtoken');
-            let token = getCookie('jsonwebtoken');
+            let token = getCookie('__Secure-HI001');
             // console.log('TOKEN:::', token);
 
             // console.log('RELOADED ');
@@ -55,6 +68,9 @@ function MyApp({ Component, pageProps }: AppProps) {
                         Authorization: `Bearer ${token}`,
                     },
                 });
+
+                // const credentialsInfo = await axios.get('http://localhost:5100/auth/whoami');
+                // console.log(credentialsInfo);
 
                 // console.log('RES:::', res);
 
@@ -108,7 +124,7 @@ MyApp.getInitialProps = async (ctx: AppContext) => {
         });
         return result;
     }
-    const token = getCookie('jsonwebtoken');
+    const token = getCookie('__Secure-HI001');
 
     if (token) {
         setToken(token);

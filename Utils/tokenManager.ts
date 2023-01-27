@@ -34,7 +34,7 @@ function setToken(jwt: string) {
 
 function deleteToken() {
     axios.defaults.headers.common['Authorization'] = null;
-    cookie.remove('jsonwebtoken');
+    cookie.remove('__Secure-HI001');
 }
 
 export { setToken, deleteToken };
